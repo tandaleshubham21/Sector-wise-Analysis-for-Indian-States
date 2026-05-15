@@ -82,5 +82,5 @@ Sector-wise-Analysis-for-Indian-States
 ---
 
 ## 👨‍💻 Author
-**Shubham Tandale**  
+**Shubham Kailas Tandale**  
 PGDM – Business Analytics
