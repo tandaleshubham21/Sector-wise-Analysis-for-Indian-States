@@ -1,290 +1,144 @@
 -- =====================================================
 -- Project: District-Wise Sectoral Analysis of Indian States
 -- Author: Shubham Kailas Tandale
--- Description:
--- SQL queries for sector-wise economic analysis
 -- =====================================================
 
-
--- =====================================================
--- Question 1:
--- Retrieve all data for a specific state, e.g., "Chhattisgarh"
--- =====================================================
-
+-- Question 1
 SELECT *
 FROM sector_analysis
 WHERE State_Name = 'Chhattisgarh';
 
-
--- =====================================================
--- Question 2:
--- Show districts with total contribution greater than
--- 100000 million Rs at current prices in a particular year
--- =====================================================
-
+-- Question 2
 SELECT Dist_Name,
        State_Name,
        Year,
        Total_Current_Prices
 FROM sector_analysis
 WHERE Total_Current_Prices > 100000
-  AND Year = 2020;
+AND Year = 2020;
 
-
--- =====================================================
--- Question 3:
--- Find the total contribution of the primary sector
--- across all districts for a given year
--- =====================================================
-
+-- Question 3
 SELECT Year,
-       SUM(Primary_Sector_Current_Prices) AS Total_Primary_Contribution
+       SUM(Primary_Sector_Current_Prices)
+       AS Total_Primary_Contribution
 FROM sector_analysis
-WHERE Year = 2020
 GROUP BY Year;
 
-
--- =====================================================
--- Question 4:
--- Display state-wise analysis using state codes and names
--- =====================================================
-
+-- Question 4
 SELECT State_Code,
        State_Name,
-       Dist_Name,
-       Total_Current_Prices
+       Dist_Name
 FROM sector_analysis;
 
-
--- =====================================================
--- Question 5:
--- Calculate year-on-year growth of the secondary sector
--- for a specific district
--- =====================================================
-
+-- Question 5
 SELECT Dist_Name,
        Year,
        Secondary_Sector_Current_Prices,
        LAG(Secondary_Sector_Current_Prices)
-       OVER (PARTITION BY Dist_Name ORDER BY Year) AS Previous_Year,
-       
-       ((Secondary_Sector_Current_Prices -
-       LAG(Secondary_Sector_Current_Prices)
-       OVER (PARTITION BY Dist_Name ORDER BY Year))
-       /
-       LAG(Secondary_Sector_Current_Prices)
-       OVER (PARTITION BY Dist_Name ORDER BY Year)) * 100
-       AS Growth_Percentage
+       OVER(PARTITION BY Dist_Name ORDER BY Year)
+       AS Previous_Year
+FROM sector_analysis;
 
-FROM sector_analysis
-WHERE Dist_Name = 'Pune';
-
-
--- =====================================================
--- Question 6:
--- Identify district with highest growth rate in tertiary sector
--- =====================================================
-
+-- Question 6
 SELECT Dist_Name,
-       MAX(Tertiary_Sector_Current_Prices) AS Highest_Tertiary_Growth
+       MAX(Tertiary_Sector_Current_Prices)
+       AS Highest_Growth
 FROM sector_analysis
 GROUP BY Dist_Name
-ORDER BY Highest_Tertiary_Growth DESC
-LIMIT 1;
+ORDER BY Highest_Growth DESC;
 
-
--- =====================================================
--- Question 7:
--- Calculate total contribution of secondary sector
--- for each state
--- =====================================================
-
+-- Question 7
 SELECT State_Name,
        SUM(Secondary_Sector_Constant_Prices)
-       AS Total_Secondary_Contribution
+       AS Total_Secondary
 FROM sector_analysis
 GROUP BY State_Name;
 
-
--- =====================================================
--- Question 8:
--- Compare per capita current prices between two districts
--- =====================================================
-
+-- Question 8
 SELECT Dist_Name,
-       Year,
        Per_Capita_Current_Prices
 FROM sector_analysis
-WHERE Dist_Name IN ('Pune', 'Mumbai')
-  AND Year = 2020;
+WHERE Dist_Name IN ('Pune', 'Mumbai');
 
-
--- =====================================================
--- Question 9:
--- Rank districts within a state based on total constant prices
--- =====================================================
-
+-- Question 9
 SELECT Dist_Name,
        State_Name,
        Total_Constant_Prices,
-
-       RANK() OVER (
+       RANK() OVER(
        PARTITION BY State_Name
-       ORDER BY Total_Constant_Prices DESC
-       ) AS District_Rank
+       ORDER BY Total_Constant_Prices DESC)
+       AS District_Rank
+FROM sector_analysis;
 
-FROM sector_analysis
-WHERE Year = 2020;
-
-
--- =====================================================
--- Question 10:
--- Find districts where primary sector constant share > 20%
--- =====================================================
-
+-- Question 10
 SELECT Dist_Name,
-       State_Name,
-       Primary_Sector_Constant_Shares
+       State_Name
 FROM sector_analysis
 WHERE Primary_Sector_Constant_Shares > 20;
 
-
--- =====================================================
--- Question 11:
--- Average share of tertiary sector current prices
--- =====================================================
-
+-- Question 11
 SELECT State_Name,
        AVG(Tertiary_Sector_Current_Shares)
        AS Avg_Tertiary_Share
 FROM sector_analysis
 GROUP BY State_Name;
 
-
--- =====================================================
--- Question 12:
--- District with highest and lowest total current prices
--- =====================================================
-
+-- Question 12
 SELECT Dist_Name,
        Total_Current_Prices
 FROM sector_analysis
-WHERE Year = 2020
 ORDER BY Total_Current_Prices DESC
 LIMIT 1;
 
+-- Question 13
 SELECT Dist_Name,
-       Total_Current_Prices
-FROM sector_analysis
-WHERE Year = 2020
-ORDER BY Total_Current_Prices ASC
-LIMIT 1;
-
-
--- =====================================================
--- Question 13:
--- Percentage contribution of secondary sector
--- =====================================================
-
-SELECT Dist_Name,
-       State_Name,
-
        (Secondary_Sector_Current_Prices /
        Total_Current_Prices) * 100
        AS Secondary_Percentage
-
 FROM sector_analysis;
 
-
--- =====================================================
--- Question 14:
--- Districts where tertiary share > secondary share
--- =====================================================
-
-SELECT Dist_Name,
-       State_Name
+-- Question 14
+SELECT Dist_Name
 FROM sector_analysis
 WHERE Tertiary_Sector_Constant_Shares >
-      Secondary_Sector_Constant_Shares
-  AND Year = 2020;
+      Secondary_Sector_Constant_Shares;
 
-
--- =====================================================
--- Question 15:
--- Districts where primary and secondary shares > 30%
--- =====================================================
-
-SELECT Dist_Name,
-       State_Name
+-- Question 15
+SELECT Dist_Name
 FROM sector_analysis
 WHERE Primary_Sector_Current_Shares > 30
-  AND Secondary_Sector_Current_Shares > 30;
+AND Secondary_Sector_Current_Shares > 30;
 
-
--- =====================================================
--- Question 16:
--- Time series analysis for total current prices
--- =====================================================
-
+-- Question 16
 SELECT Year,
        Total_Current_Prices
 FROM sector_analysis
-WHERE Dist_Name = 'Pune'
-ORDER BY Year;
+WHERE Dist_Name = 'Pune';
 
-
--- =====================================================
--- Question 17:
--- State contributing most in tertiary sector
--- =====================================================
-
+-- Question 17
 SELECT State_Name,
        SUM(Tertiary_Sector_Current_Prices)
        AS Total_Tertiary
-
 FROM sector_analysis
-WHERE Year = 2020
 GROUP BY State_Name
 ORDER BY Total_Tertiary DESC
 LIMIT 1;
 
-
--- =====================================================
--- Question 18:
--- Find unique states in dataset
--- =====================================================
-
+-- Question 18
 SELECT DISTINCT State_Name
 FROM sector_analysis;
 
-
--- =====================================================
--- Question 19:
--- Total economic contribution for a state
--- =====================================================
-
+-- Question 19
 SELECT State_Name,
        SUM(Total_Current_Prices)
-       AS Total_Economic_Contribution
+       AS Total_Contribution
 FROM sector_analysis
-WHERE State_Name = 'Maharashtra'
-  AND Year = 2020
 GROUP BY State_Name;
 
-
--- =====================================================
--- Question 20:
--- Cumulative total of primary sector over years
--- =====================================================
-
+-- Question 20
 SELECT Dist_Name,
        Year,
-       Primary_Sector_Constant_Prices,
-
        SUM(Primary_Sector_Constant_Prices)
-       OVER (
-       PARTITION BY Dist_Name
-       ORDER BY Year
-       ) AS Cumulative_Total
-
+       OVER(PARTITION BY Dist_Name ORDER BY Year)
+       AS Cumulative_Total
 FROM sector_analysis;
