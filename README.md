@@ -78,9 +78,3 @@ Sector-wise-Analysis-for-Indian-States
 - Predictive analytics using Python
 - Automated reports
 - Advanced visualizations
-
----
-
-## 👨‍💻 Author
-**Shubham Tandale**  
-PGDM – Business Analytics
