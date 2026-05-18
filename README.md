@@ -29,6 +29,12 @@ The analysis helps identify:
 - GitHub
 
 ---
+```sql
+SELECT State_Name,
+       SUM(Tertiary_Sector)
+FROM sector_data
+GROUP BY State_Name;
+```
 
 ## 📂 Repository Structure
 
