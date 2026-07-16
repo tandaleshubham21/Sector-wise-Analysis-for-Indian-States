@@ -78,7 +78,8 @@ This project performs **comprehensive district-level sectoral analysis** across 
 ```bash
 Sector-wise-Analysis-for-Indian-States/
 ├── .github/workflows/
-│   └── ci.yml                    # Automated CI validation
+│   ├── ci.yml                    # Project validation CI
+│   └── update-readme.yml         # Auto-updates this README
 ├── Dataset/
 │   └── Sectorial Analysis        # Source data
 ├── Query Outputs/                # 20 pre-computed query results (Q1–Q20)
@@ -118,12 +119,15 @@ Sector-wise-Analysis-for-Indian-States/
 
 ## ⚙️ Automation with GitHub Actions
 
-This repository uses **GitHub Actions** for continuous quality assurance:
+This repository uses **GitHub Actions** for continuous quality assurance and maintenance:
 
-- ✅ Validates all Query Output files on every push
+- ✅ Validates all Query Output files and core project files
 - ✅ Ensures Tableau dashboard file is present
+- ✅ **Auto-updates this README** with the last successful validation time
 - ✅ Runs automatically on push & pull requests
-- ✅ Supports manual triggering from Actions tab
+- ✅ Supports manual triggering from the Actions tab
+
+**Last Automated Validation:** <!-- LAST_VALIDATED: -->**Not yet run** <!-- /LAST_VALIDATED -->
 
 **→ [View Workflow Runs](https://github.com/tandaleshubham21/Sector-wise-Analysis-for-Indian-States/actions)**
 
