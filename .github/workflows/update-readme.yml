@@ -8,6 +8,10 @@ on:
       - completed
     branches: [ main ]
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   update-readme:
     runs-on: ubuntu-latest
@@ -33,6 +37,6 @@ jobs:
           else
             git add README.md
             git commit -m "chore: Auto-update last validation time in README [skip ci]"
-            git push
+            git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
             echo "✅ README updated and pushed successfully"
           fi
