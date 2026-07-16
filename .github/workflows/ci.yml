@@ -20,7 +20,6 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-          # cache removed - project has no requirements.txt or pyproject.toml
 
       - name: Install dependencies
         run: |
@@ -31,7 +30,6 @@ jobs:
         run: |
           echo "🔍 Validating project structure..."
           
-          # Check essential files
           files=(
             "README.md"
             "LICENSE"
@@ -53,8 +51,6 @@ jobs:
         run: |
           echo "🔍 Checking Query Outputs folder..."
           ls -la "Query Outputs/" | head -25
-          count=$(ls Query\ Outputs/*.csv 2>/dev/null | wc -l)
-          echo "📊 Found $count CSV output files"
 
       - name: Validate Tableau Dashboard
         run: |
@@ -68,16 +64,18 @@ jobs:
 
       - name: Generate Project Summary
         run: |
+          count=$(ls "Query Outputs"/*.csv 2>/dev/null | wc -l || echo 0)
+
           echo "## 📊 Project Validation Summary" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "| Component              | Status    |" >> $GITHUB_STEP_SUMMARY
-          echo "|------------------------|-----------|" >> $GITHUB_STEP_SUMMARY
-          echo "| README.md              | ✅ Present |" >> $GITHUB_STEP_SUMMARY
-          echo "| LICENSE                | ✅ Present |" >> $GITHUB_STEP_SUMMARY
-          echo "| .gitignore             | ✅ Present |" >> $GITHUB_STEP_SUMMARY
-          echo "| Tableau Dashboard      | ✅ Present |" >> $GITHUB_STEP_SUMMARY
-          echo "| SQL Queries            | ✅ Present |" >> $GITHUB_STEP_SUMMARY
-          echo "| Query Output CSVs      | ✅ $count files |" >> $GITHUB_STEP_SUMMARY
+          echo "| Component              | Status          |" >> $GITHUB_STEP_SUMMARY
+          echo "|------------------------|----------------- |" >> $GITHUB_STEP_SUMMARY
+          echo "| README.md              | ✅ Present       |" >> $GITHUB_STEP_SUMMARY
+          echo "| LICENSE                | ✅ Present       |" >> $GITHUB_STEP_SUMMARY
+          echo "| .gitignore             | ✅ Present       |" >> $GITHUB_STEP_SUMMARY
+          echo "| Tableau Dashboard      | ✅ Present       |" >> $GITHUB_STEP_SUMMARY
+          echo "| SQL Queries            | ✅ Present       |" >> $GITHUB_STEP_SUMMARY
+          echo "| Query Output CSVs      | ✅ $count files  |" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "**Project is healthy and ready for use!**" >> $GITHUB_STEP_SUMMARY
 
