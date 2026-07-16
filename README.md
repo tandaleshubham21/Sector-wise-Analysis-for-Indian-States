@@ -1,49 +1,75 @@
 # Sector-wise-Analysis-for-Indian-States
 
-## 📌 Project Overview
-This project analyzes **district-wise sectoral economic performance** across Indian states using SQL. The dataset contains economic contributions from **Primary, Secondary, and Tertiary** sectors at both constant and current prices.
+<div align="center">
 
-The analysis helps identify:
-- Sector-wise growth trends
-- Economic performance of districts & states
-- Time-series insights
-- Per capita & contribution comparisons
+# 📊 District-wise Sectoral Economic Analysis of Indian States
+
+**Advanced SQL + Tableau Project**
+
+[![CI](https://github.com/tandaleshubham21/Sector-wise-Analysis-for-Indian-States/actions/workflows/ci.yml/badge.svg)](https://github.com/tandaleshubham21/Sector-wise-Analysis-for-Indian-States/actions)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Made with SQL](https://img.shields.io/badge/Made%20with-SQL-blue?logo=sqlite)](https://www.sqlite.org/)
+[![Tableau](https://img.shields.io/badge/Tableau-Dashboard-orange?logo=tableau)](https://www.tableau.com/)
+
+**Analyze • Visualize • Insight**
+
+</div>
 
 ---
 
-## 📊 Interactive Dashboard (Tableau)
+## 📌 Project Overview
 
-A beautiful interactive Tableau dashboard has been created for this project:
+This project performs **comprehensive district-level sectoral analysis** across multiple Indian states using advanced SQL techniques. It examines the contribution of **Primary, Secondary, and Tertiary** sectors using both constant and current prices.
 
-**Dashboard Features:**
-- Time series analysis of Primary, Secondary & Tertiary sectors
-- Map visualization of district-wise data across India
-- Bar charts for sector comparison across states/districts
-- Per capita analysis over years
+### What makes this project special?
+- Deep district-level granularity across 20+ states
+- Time-series analysis from 2007–2013
+- Rich visualization through interactive Tableau dashboard
+- Real-world economic insights with practical business value
+
+---
+
+## 📊 Interactive Tableau Dashboard
+
+<div align="center">
 
 ![District-wise sectoral analysis Dashboard](Dashboard.png)
 
-**Tableau Workbook:** `sectoral analysis_v2025.3.twbx`
+**Click to explore the full interactive experience →** `sectoral analysis_v2025.3.twbx`
 
-> Open the `.twbx` file in Tableau Desktop/Public to explore the interactive version with filters, drill-downs, and dynamic visualizations.
+</div>
+
+### Dashboard Highlights
+| Feature                    | Description                                      |
+|---------------------------|--------------------------------------------------|
+| **Time Series Analysis**  | Track Primary, Secondary & Tertiary growth over years |
+| **Map Visualization**     | Geographic view of economic performance across India    |
+| **Sector Comparison**     | Bar charts comparing districts and states               |
+| **Per Capita Analysis**   | Income trends and disparities visualization             |
+
+> **Tip:** Open the `.twbx` file in **Tableau Desktop** or **Tableau Public** to interact with filters, drill-downs, and dynamic charts.
 
 ---
 
-## 🎯 Objectives
-- Perform advanced SQL-based economic analysis
-- Identify sector growth trends & district performance
-- Compare state-wise economic contributions
-- Generate actionable business insights
-- Practice window functions, ranking, time-series analysis
+## 🎯 Project Objectives
+
+- Perform advanced **SQL-based economic analysis** at district level
+- Identify **sectoral growth trends** and performance leaders
+- Compare **state-wise and district-wise** economic contributions
+- Generate **actionable business & policy insights**
+- Master advanced SQL concepts (Window Functions, Ranking, Time-Series)
 
 ---
 
 ## 🛠 Tools & Technologies
-- **SQL** (MySQL / PostgreSQL)
-- **Tableau** (for interactive dashboards)
-- **GitHub Actions** (CI automation & validation)
-- DBeaver
-- GitHub
+
+| Category           | Tools Used                          |
+|--------------------|-------------------------------------|
+| **Data Analysis**  | SQL (MySQL / PostgreSQL)            |
+| **Visualization**  | **Tableau**                         |
+| **Automation**     | **GitHub Actions** (CI/CD)          |
+| **Database Tool**  | DBeaver                             |
+| **Version Control**| Git + GitHub                        |
 
 ---
 
@@ -51,68 +77,77 @@ A beautiful interactive Tableau dashboard has been created for this project:
 
 ```bash
 Sector-wise-Analysis-for-Indian-States/
-│
-├── .github/workflows/ci.yml   # GitHub Actions CI
-│
-├── Dataset /
-│   └── Sectorial Analysis
-│
-├── Query Outputs/
-│   ├── Q1.csv ... Q20.csv
-│
-├── SQL Queries                 # All SQL queries used
-│
-├── project code.sql            # Main analysis queries
-│
-├── sectoral analysis_v2025.3.twbx   # Tableau Dashboard
-│
-├── Dashboard.png               # Dashboard screenshot
-│
+├── .github/workflows/
+│   └── ci.yml                    # Automated CI validation
+├── Dataset/
+│   └── Sectorial Analysis        # Source data
+├── Query Outputs/                # 20 pre-computed query results (Q1–Q20)
+├── SQL Queries/                  # All analysis queries
+├── project code.sql              # Main working queries
+├── sectoral analysis_v2025.3.twbx # Tableau Dashboard
+├── Dashboard.png                 # Dashboard preview image
 ├── Reports/
 │   └── Sectorial Analysis Report.docx
-│
+├── LICENSE
+├── .gitignore
 └── README.md
 ```
 
 ---
 
-## 📊 SQL Concepts Used
-- Filtering, Aggregation, GROUP BY
-- Window Functions (RANK, LAG, Cumulative SUM)
-- Subqueries & Joins
-- Time-Series Analysis
-- Ranking & Ordering
+## 📊 Advanced SQL Concepts Mastered
+
+- ✅ Filtering, Aggregation & GROUP BY
+- ✅ **Window Functions** (RANK(), LAG(), Cumulative SUM)
+- ✅ Subqueries & Complex Joins
+- ✅ **Time-Series Analysis**
+- ✅ Ranking & Ordering with PARTITION BY
 
 ---
 
-## 📈 Key Insights
-- **Tertiary sector** dominates in most developed districts (e.g., Thane, Pune, Nagpur)
-- Some districts (e.g., Osmanabad, Beed) still have high primary sector dependence
-- **Pune** and **Thane** consistently rank at the top in total economic contribution
-- Significant variation in per capita income across Maharashtra districts
+## 📈 Key Insights & Findings
 
----
-
-## 🚀 Future Improvements
-- Publish interactive dashboard to Tableau Public
-- Add predictive analytics (Python)
-- Create Power BI version
-- Automated reporting pipeline
-- Expand GitHub Actions for auto-regenerating query outputs
+| Insight | Details |
+|---------|---------|
+| **Tertiary Sector Dominance** | Strong in developed districts like **Thane, Pune, Nagpur** |
+| **Primary Sector Dependence** | Higher in districts like **Osmanabad, Beed, Parbhani** |
+| **Top Performers**            | **Pune** and **Thane** consistently lead in total economic contribution |
+| **Per Capita Variation**      | Significant differences across Maharashtra districts |
 
 ---
 
 ## ⚙️ Automation with GitHub Actions
 
-This project now uses **GitHub Actions** for continuous validation:
+This repository uses **GitHub Actions** for continuous quality assurance:
 
-- ✅ Automatically validates that all Query Output CSVs exist
-- ✅ Checks that the Tableau `.twbx` dashboard file is present
-- ✅ Runs on every push and pull request
-- ✅ Can be triggered manually from the Actions tab
+- ✅ Validates all Query Output files on every push
+- ✅ Ensures Tableau dashboard file is present
+- ✅ Runs automatically on push & pull requests
+- ✅ Supports manual triggering from Actions tab
 
-**View Workflow Runs:** https://github.com/tandaleshubham21/Sector-wise-Analysis-for-Indian-States/actions
+**→ [View Workflow Runs](https://github.com/tandaleshubham21/Sector-wise-Analysis-for-Indian-States/actions)**
 
 ---
 
-*Project by: Shubham Kailas Tandale*
+## 🚀 Future Roadmap
+
+- [ ] Publish interactive dashboard to **Tableau Public**
+- [ ] Add **Python predictive analytics** layer
+- [ ] Create **Power BI** version of dashboard
+- [ ] Build automated reporting pipeline
+- [ ] Expand GitHub Actions for dynamic query regeneration
+
+---
+
+## 📬 Contact & Credits
+
+**Project Author:** Shubham Kailas Tandale  
+**Built with ❤️ using SQL + Tableau**
+
+---
+
+<div align="center">
+
+**⭐ If you found this project helpful, consider giving it a star!**
+
+</div>
