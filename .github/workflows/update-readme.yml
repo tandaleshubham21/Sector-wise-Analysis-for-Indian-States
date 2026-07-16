@@ -1,7 +1,7 @@
 name: Auto-Update README with Last Validation Time
 
 on:
-  workflow_dispatch:   # Manual trigger
+  workflow_dispatch:   # Manual trigger from Actions tab
   workflow_run:
     workflows: ["CI - Sectoral Analysis Project"]
     types:
@@ -19,36 +19,44 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Get current date and time
-        id: date
-        run: |
-          echo "timestamp=$(date '+%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_OUTPUT
-          echo "date_only=$(date '+%Y-%m-%d')" >> $GITHUB_OUTPUT
+      - name: Get current timestamp
+        id: timestamp
+        run: echo "time=$(date '+%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_OUTPUT
 
-      - name: Update README with last validation time
+      - name: Update README timestamp
         run: |
-          TIMESTAMP="${{ steps.date.outputs.timestamp }}"
-          
-          # Update the Last Automated Validation section in README
-          sed -i "s|<!-- LAST_VALIDATED: -->.*<!-- /LAST_VALIDATED -->|<!-- LAST_VALIDATED: -->**$TIMESTAMP** <!-- /LAST_VALIDATED -->|g" README.md
-          
-          # If the marker doesn't exist, append a new section at the bottom
-          if ! grep -q "LAST_VALIDATED" README.md; then
-            echo "" >> README.md
-            echo "---" >> README.md
-            echo "" >> README.md
-            echo "<!-- LAST_VALIDATED: -->**$TIMESTAMP** <!-- /LAST_VALIDATED -->" >> README.md
-          fi
+          python3 -c "
+import re
+with open('README.md', 'r', encoding='utf-8') as f:
+    content = f.read()
 
-      - name: Commit and push changes
+new_time = '${{ steps.timestamp.outputs.time }}'
+
+# Replace existing marker
+pattern = r'<!-- LAST_VALIDATED: -->.*?<!-- /LAST_VALIDATED -->'
+replacement = f'<!-- LAST_VALIDATED: -->**{new_time}** <!-- /LAST_VALIDATED -->'
+
+if re.search(pattern, content):
+    content = re.sub(pattern, replacement, content)
+else:
+    # Append new section if marker not found
+    content += f'\n\n---\n\n<!-- LAST_VALIDATED: -->**{new_time}** <!-- /LAST_VALIDATED -->\n'
+
+with open('README.md', 'w', encoding='utf-8') as f:
+    f.write(content)
+print('README updated successfully with timestamp:', new_time)
+"
+
+      - name: Commit and push if changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          
+
           if git diff --quiet README.md; then
-            echo "No changes to commit"
+            echo "No changes detected in README"
           else
             git add README.md
-            git commit -m "chore: Auto-update README with last validation time [skip ci]"
+            git commit -m "chore: Auto-update last validation time in README [skip ci]"
             git push
+            echo "README updated and pushed successfully"
           fi
