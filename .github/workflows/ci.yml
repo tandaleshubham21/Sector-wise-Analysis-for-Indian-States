@@ -98,18 +98,25 @@ jobs:
       - name: Validate YAML files
         run: |
           echo "Validating workflow files..."
-          python -c "
+          cat > /tmp/validate_yaml.py << 'PYEOF'
 import yaml
 import os
+import sys
+
+error_found = False
 for root, dirs, files in os.walk('.github/workflows'):
     for file in files:
         if file.endswith('.yml') or file.endswith('.yaml'):
             path = os.path.join(root, file)
             try:
-                with open(path) as f:
+                with open(path, 'r') as f:
                     yaml.safe_load(f)
                 print(f'✅ {path} is valid YAML')
             except Exception as e:
                 print(f'❌ {path} has YAML error: {e}')
-                exit(1)
-"
+                error_found = True
+
+if error_found:
+    sys.exit(1)
+PYEOF
+          python /tmp/validate_yaml.py
