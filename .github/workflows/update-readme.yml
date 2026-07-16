@@ -1,7 +1,7 @@
 name: Auto-Update README with Last Validation Time
 
 on:
-  workflow_dispatch:   # Manual trigger from Actions tab
+  workflow_dispatch:   # Manual trigger
   workflow_run:
     workflows: ["CI - Sectoral Analysis Project"]
     types:
@@ -19,33 +19,9 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Get current timestamp
-        id: timestamp
-        run: echo "time=$(date '+%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_OUTPUT
-
       - name: Update README timestamp
         run: |
-          python3 -c "
-import re
-with open('README.md', 'r', encoding='utf-8') as f:
-    content = f.read()
-
-new_time = '${{ steps.timestamp.outputs.time }}'
-
-# Replace existing marker
-pattern = r'<!-- LAST_VALIDATED: -->.*?<!-- /LAST_VALIDATED -->'
-replacement = f'<!-- LAST_VALIDATED: -->**{new_time}** <!-- /LAST_VALIDATED -->'
-
-if re.search(pattern, content):
-    content = re.sub(pattern, replacement, content)
-else:
-    # Append new section if marker not found
-    content += f'\n\n---\n\n<!-- LAST_VALIDATED: -->**{new_time}** <!-- /LAST_VALIDATED -->\n'
-
-with open('README.md', 'w', encoding='utf-8') as f:
-    f.write(content)
-print('README updated successfully with timestamp:', new_time)
-"
+          python .github/scripts/update_readme_timestamp.py
 
       - name: Commit and push if changed
         run: |
@@ -58,5 +34,5 @@ print('README updated successfully with timestamp:', new_time)
             git add README.md
             git commit -m "chore: Auto-update last validation time in README [skip ci]"
             git push
-            echo "README updated and pushed successfully"
+            echo "✅ README updated and pushed successfully"
           fi
