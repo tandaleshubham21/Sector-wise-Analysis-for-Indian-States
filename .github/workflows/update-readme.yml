@@ -1,0 +1,54 @@
+name: Auto-Update README with Last Validation Time
+
+on:
+  workflow_dispatch:   # Manual trigger
+  workflow_run:
+    workflows: ["CI - Sectoral Analysis Project"]
+    types:
+      - completed
+    branches: [ main ]
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Get current date and time
+        id: date
+        run: |
+          echo "timestamp=$(date '+%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_OUTPUT
+          echo "date_only=$(date '+%Y-%m-%d')" >> $GITHUB_OUTPUT
+
+      - name: Update README with last validation time
+        run: |
+          TIMESTAMP="${{ steps.date.outputs.timestamp }}"
+          
+          # Update the Last Automated Validation section in README
+          sed -i "s|<!-- LAST_VALIDATED: -->.*<!-- /LAST_VALIDATED -->|<!-- LAST_VALIDATED: -->**$TIMESTAMP** <!-- /LAST_VALIDATED -->|g" README.md
+          
+          # If the marker doesn't exist, append a new section at the bottom
+          if ! grep -q "LAST_VALIDATED" README.md; then
+            echo "" >> README.md
+            echo "---" >> README.md
+            echo "" >> README.md
+            echo "<!-- LAST_VALIDATED: -->**$TIMESTAMP** <!-- /LAST_VALIDATED -->" >> README.md
+          fi
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          if git diff --quiet README.md; then
+            echo "No changes to commit"
+          else
+            git add README.md
+            git commit -m "chore: Auto-update README with last validation time [skip ci]"
+            git push
+          fi
