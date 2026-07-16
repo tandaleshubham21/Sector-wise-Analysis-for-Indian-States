@@ -41,6 +41,7 @@ A beautiful interactive Tableau dashboard has been created for this project:
 ## 🛠 Tools & Technologies
 - **SQL** (MySQL / PostgreSQL)
 - **Tableau** (for interactive dashboards)
+- **GitHub Actions** (CI automation & validation)
 - DBeaver
 - GitHub
 
@@ -50,6 +51,8 @@ A beautiful interactive Tableau dashboard has been created for this project:
 
 ```bash
 Sector-wise-Analysis-for-Indian-States/
+│
+├── .github/workflows/ci.yml   # GitHub Actions CI
 │
 ├── Dataset /
 │   └── Sectorial Analysis
@@ -95,6 +98,20 @@ Sector-wise-Analysis-for-Indian-States/
 - Add predictive analytics (Python)
 - Create Power BI version
 - Automated reporting pipeline
+- Expand GitHub Actions for auto-regenerating query outputs
+
+---
+
+## ⚙️ Automation with GitHub Actions
+
+This project now uses **GitHub Actions** for continuous validation:
+
+- ✅ Automatically validates that all Query Output CSVs exist
+- ✅ Checks that the Tableau `.twbx` dashboard file is present
+- ✅ Runs on every push and pull request
+- ✅ Can be triggered manually from the Actions tab
+
+**View Workflow Runs:** https://github.com/tandaleshubham21/Sector-wise-Analysis-for-Indian-States/actions
 
 ---
 
