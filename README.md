@@ -1,31 +1,47 @@
 # Sector-wise-Analysis-for-Indian-States
 
 ## 📌 Project Overview
-This project analyzes district-wise sectoral economic performance across Indian states using SQL. The dataset contains economic contributions from Primary, Secondary, and Tertiary sectors at both constant and current prices.
+This project analyzes **district-wise sectoral economic performance** across Indian states using SQL. The dataset contains economic contributions from **Primary, Secondary, and Tertiary** sectors at both constant and current prices.
 
 The analysis helps identify:
-- Sector-wise growth
-- Economic trends
-- District performance
-- State comparisons
+- Sector-wise growth trends
+- Economic performance of districts & states
 - Time-series insights
+- Per capita & contribution comparisons
+
+---
+
+## 📊 Interactive Dashboard (Tableau)
+
+A beautiful interactive Tableau dashboard has been created for this project:
+
+**Dashboard Features:**
+- Time series analysis of Primary, Secondary & Tertiary sectors
+- Map visualization of district-wise data across India
+- Bar charts for sector comparison across states/districts
+- Per capita analysis over years
+
+![District-wise sectoral analysis Dashboard](Dashboard.png)
+
+**Tableau Workbook:** `sectoral analysis_v2025.3.twbx`
+
+> Open the `.twbx` file in Tableau Desktop/Public to explore the interactive version with filters, drill-downs, and dynamic visualizations.
 
 ---
 
 ## 🎯 Objectives
-- Perform SQL-based economic analysis
-- Identify sector growth trends
-- Compare district and state performance
-- Generate business insights
-- Practice advanced SQL concepts
+- Perform advanced SQL-based economic analysis
+- Identify sector growth trends & district performance
+- Compare state-wise economic contributions
+- Generate actionable business insights
+- Practice window functions, ranking, time-series analysis
 
 ---
 
 ## 🛠 Tools & Technologies
-- SQL
-- MySQL / PostgreSQL
+- **SQL** (MySQL / PostgreSQL)
+- **Tableau** (for interactive dashboards)
 - DBeaver
-- Power BI
 - GitHub
 
 ---
@@ -33,20 +49,24 @@ The analysis helps identify:
 ## 📂 Repository Structure
 
 ```bash
-Sector-wise-Analysis-for-Indian-States
+Sector-wise-Analysis-for-Indian-States/
 │
-├── Dataset
-│   └── SectoralAnalysis.csv
+├── Dataset /
+│   └── Sectorial Analysis
 │
-├── SQL Queries
-│   └── all_queries.sql
+├── Query Outputs/
+│   ├── Q1.csv ... Q20.csv
 │
-├── Query Outputs
-│   ├── Q1.csv
-│   └── Q2.csv
+├── SQL Queries                 # All SQL queries used
 │
-├── Reports
-│   └── PGDM_Project_Report.pdf
+├── project code.sql            # Main analysis queries
+│
+├── sectoral analysis_v2025.3.twbx   # Tableau Dashboard
+│
+├── Dashboard.png               # Dashboard screenshot
+│
+├── Reports/
+│   └── Sectorial Analysis Report.docx
 │
 └── README.md
 ```
@@ -54,27 +74,28 @@ Sector-wise-Analysis-for-Indian-States
 ---
 
 ## 📊 SQL Concepts Used
-- Filtering
-- Aggregation
-- Window Functions
-- Ranking
-- Subqueries
-- Joins
-- Group By
+- Filtering, Aggregation, GROUP BY
+- Window Functions (RANK, LAG, Cumulative SUM)
+- Subqueries & Joins
 - Time-Series Analysis
+- Ranking & Ordering
 
 ---
 
 ## 📈 Key Insights
-- Urban districts show stronger tertiary sector growth
-- Some districts remain dependent on the primary sector
-- Economic contribution differs significantly across states
-- Per capita contribution is higher in developed districts
+- **Tertiary sector** dominates in most developed districts (e.g., Thane, Pune, Nagpur)
+- Some districts (e.g., Osmanabad, Beed) still have high primary sector dependence
+- **Pune** and **Thane** consistently rank at the top in total economic contribution
+- Significant variation in per capita income across Maharashtra districts
 
 ---
 
 ## 🚀 Future Improvements
-- Interactive Power BI dashboards
-- Predictive analytics using Python
-- Automated reports
-- Advanced visualizations
+- Publish interactive dashboard to Tableau Public
+- Add predictive analytics (Python)
+- Create Power BI version
+- Automated reporting pipeline
+
+---
+
+*Project by: Shubham Kailas Tandale*
